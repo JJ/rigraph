@@ -354,7 +354,10 @@ int R_igraph_attribute_init(igraph_t *graph, igraph_vector_ptr_t *attr) {
   REAL(VECTOR_ELT(result, 0))[1]=1; /* igraph_t objects */
   REAL(VECTOR_ELT(result, 0))[2]=1; /* whether the graph is safe */
   for (i=1; i<3; i++) {
-    SET_VECTOR_ELT(result, i+1, NEW_LIST(0)); /* gal, val, eal */
+    SEXP attr = PROTECT(NEW_LIST(0));
+    SET_NAMES(attr, NEW_CHARACTER(0));
+    SET_VECTOR_ELT(result, i+1, attr); /* gal, val, eal */
+    UNPROTECT(1);
   }
   graph->attr=result;
 
